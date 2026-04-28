@@ -1,0 +1,72 @@
+<UserControl x:Class="AccountBookApp.Views.UserProfilePopupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Background="#AA061018"
+            Visibility="{Binding IsUserProfilePopupOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid>
+            <Border Width="520"
+                    Padding="28"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource PaperBackgroundBrush}"
+                    BorderBrush="{DynamicResource LineBrush}"
+                    BorderThickness="1"
+                    CornerRadius="24">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource EyebrowTextStyle}" Text="{Binding UserProfilePopupEyebrowText}" />
+                    <TextBlock Margin="0,8,0,0" Style="{StaticResource SectionTitleStyle}" Text="{Binding UserProfilePopupTitle}" />
+                    <TextBlock Margin="0,8,0,20" Style="{StaticResource SubtleBodyStyle}" Text="{Binding UserProfilePopupDescriptionText}" TextWrapping="Wrap" />
+                    <Border Padding="14,10"
+                            Background="{DynamicResource InfoBackgroundBrush}"
+                            BorderBrush="{DynamicResource LineBrush}"
+                            BorderThickness="1"
+                            CornerRadius="16">
+                        <TextBlock Style="{StaticResource AccentBodyStyle}" Text="사이드바 카드 정보" />
+                    </Border>
+
+                    <TextBlock Margin="0,20,0,0" Style="{StaticResource FieldLabelStyle}" Text="사용자 이름" />
+                    <TextBox Margin="0,8,0,0" Text="{Binding UserProfileNameInput, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Margin="0,18,0,0" Style="{StaticResource FieldLabelStyle}" Text="장부 이름" />
+                    <TextBox Margin="0,8,0,0" Text="{Binding LedgerNameInput, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Margin="0,18,0,0" Style="{StaticResource FieldLabelStyle}" Text="메모" />
+                    <TextBox Height="100"
+                             Margin="0,8,0,0"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             TextWrapping="Wrap"
+                             Text="{Binding UserProfileNoteInput, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Border Margin="0,18,0,0"
+                            Padding="14,12"
+                            Background="{DynamicResource WarningBackgroundBrush}"
+                            BorderBrush="{DynamicResource WarningBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="14"
+                            Visibility="{Binding HasUserProfileValidationMessage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Foreground="{DynamicResource WarningTextBrush}"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding UserProfileValidationMessage}" />
+                    </Border>
+
+                    <Grid Margin="0,22,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Height="44" Command="{Binding SaveUserProfileCommand}" Content="저장" />
+                        <Button Grid.Column="2"
+                                Height="44"
+                                Background="{DynamicResource SecondaryButtonBrush}"
+                                BorderBrush="{DynamicResource SecondaryButtonBorderBrush}"
+                                Foreground="{DynamicResource SecondaryButtonTextBrush}"
+                                Command="{Binding CloseUserProfileCommand}"
+                                Content="취소" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,124 @@
+﻿<svg width="1800" height="1240" viewBox="0 0 1800 1240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1800" y2="1240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EEF2EE"/>
+      <stop offset="1" stop-color="#E5EAE4"/>
+    </linearGradient>
+    <filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#667268" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .hero { font: 700 40px 'Segoe UI', sans-serif; fill: #202923; }
+      .sec { font: 700 24px 'Segoe UI', sans-serif; fill: #26322B; }
+      .cap { font: 700 12px 'Segoe UI', sans-serif; fill: #5A7D6E; letter-spacing: 1.8px; }
+      .txt { font: 500 15px 'Segoe UI', sans-serif; fill: #5D6960; }
+      .mini { font: 500 12px 'Segoe UI', sans-serif; fill: #7E8881; }
+      .nav { font: 600 14px 'Segoe UI', sans-serif; fill: #334138; }
+      .stat { font: 700 30px 'Segoe UI', sans-serif; fill: #1E2722; }
+      .label { font: 600 12px 'Segoe UI', sans-serif; fill: #6D7770; letter-spacing: 1px; }
+      .btn { font: 700 14px 'Segoe UI', sans-serif; fill: #F7FAF7; }
+      .ink { font: 600 14px 'Segoe UI', sans-serif; fill: #243028; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="1240" fill="url(#bg2)"/>
+  <rect x="0" y="0" width="1800" height="220" fill="#DDE5DD"/>
+  <text x="72" y="86" class="hero">Double-entry Ledger Concept B</text>
+  <text x="72" y="122" class="txt">A cleaner, more productized web-app direction that still respects the report-first discipline of Whooing.</text>
+
+  <rect x="72" y="154" width="1656" height="42" rx="20" fill="#F7FAF7" stroke="#CBD5CB"/>
+  <text x="96" y="180" class="cap">KEYWORDS</text>
+  <text x="220" y="180" class="txt">Account tree, net-worth reporting, clean tables, monthly review, calm productivity UI.</text>
+
+  <text x="72" y="262" class="sec">Web-first Main</text>
+  <g filter="url(#shadow2)"><rect x="72" y="286" width="1080" height="700" rx="28" fill="#F8FBF8" stroke="#CFD7CF"/></g>
+  <rect x="96" y="310" width="1032" height="56" rx="22" fill="#FFFFFF" stroke="#D4DCD4"/>
+  <text x="122" y="346" class="sec" style="font-size:22px;">AccountBook</text>
+  <text x="544" y="346" class="nav">Overview</text>
+  <text x="636" y="346" class="nav">Journal</text>
+  <text x="726" y="346" class="nav">Reports</text>
+  <text x="818" y="346" class="nav">Accounts</text>
+  <rect x="982" y="322" width="122" height="32" rx="16" fill="#527A68"/>
+  <text x="1018" y="343" class="btn">New Entry</text>
+
+  <rect x="96" y="392" width="210" height="570" rx="22" fill="#EEF3EE" stroke="#D4DDD4"/>
+  <text x="120" y="426" class="cap">SECTIONS</text>
+  <rect x="120" y="454" width="162" height="50" rx="16" fill="#DDE7DE"/>
+  <text x="142" y="485" class="ink">Quick entry</text>
+  <rect x="120" y="516" width="162" height="50" rx="16" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <text x="142" y="547" class="ink">Journal view</text>
+  <rect x="120" y="578" width="162" height="50" rx="16" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <text x="142" y="609" class="ink">Net worth report</text>
+  <rect x="120" y="640" width="162" height="50" rx="16" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <text x="142" y="671" class="ink">Account setup</text>
+  <rect x="120" y="734" width="162" height="196" rx="18" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <text x="142" y="768" class="cap">ACCOUNT TREE</text>
+  <text x="142" y="800" class="txt">Assets</text>
+  <text x="142" y="826" class="txt">Liabilities</text>
+  <text x="142" y="852" class="txt">Income</text>
+  <text x="142" y="878" class="txt">Expenses</text>
+
+  <rect x="330" y="392" width="798" height="148" rx="24" fill="#263A30"/>
+  <text x="360" y="426" class="cap" fill="#BDD2C6">SUMMARY</text>
+  <text x="360" y="472" style="font:700 34px 'Segoe UI', sans-serif; fill:#F7FAF7;">A double-entry home that keeps input and reports in one rhythm</text>
+  <text x="360" y="504" style="font:500 15px 'Segoe UI', sans-serif; fill:#DBE7DE;">The layout borrows Whooing's structure but feels more like a modern web product.</text>
+
+  <rect x="330" y="568" width="184" height="104" rx="20" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <rect x="534" y="568" width="184" height="104" rx="20" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <rect x="738" y="568" width="184" height="104" rx="20" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <rect x="942" y="568" width="186" height="104" rx="20" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <text x="354" y="598" class="label">NET ASSET</text><text x="354" y="640" class="stat">23.4M</text>
+  <text x="558" y="598" class="label">LIABILITY</text><text x="558" y="640" class="stat">3.2M</text>
+  <text x="762" y="598" class="label">MONTHLY IN</text><text x="762" y="640" class="stat">3.8M</text>
+  <text x="966" y="598" class="label">MONTHLY OUT</text><text x="966" y="640" class="stat">1.9M</text>
+
+  <rect x="330" y="700" width="374" height="262" rx="24" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <text x="356" y="736" class="sec" style="font-size:22px;">Quick entry</text>
+  <text x="356" y="762" class="mini">The left-right account model stays visible from the first glance.</text>
+  <rect x="356" y="790" width="322" height="40" rx="14" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <rect x="356" y="844" width="154" height="40" rx="14" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <rect x="524" y="844" width="154" height="40" rx="14" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <rect x="356" y="898" width="154" height="40" rx="14" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <rect x="524" y="898" width="154" height="40" rx="14" fill="#F8FBF8" stroke="#D4DDD4"/>
+  <rect x="356" y="948" width="322" height="40" rx="16" fill="#527A68"/>
+  <text x="474" y="973" class="btn">Save entry</text>
+
+  <rect x="726" y="700" width="402" height="262" rx="24" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <text x="752" y="736" class="sec" style="font-size:22px;">Report preview</text>
+  <line x1="752" y1="790" x2="1102" y2="790" stroke="#D8E0D8"/>
+  <path d="M760 902 C804 878 830 894 870 862 C910 830 940 844 978 818 C1010 796 1046 804 1092 760" stroke="#527A68" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M760 922 C814 910 846 914 884 896 C930 874 962 888 998 870 C1034 854 1066 864 1092 846" stroke="#C3B08A" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <text x="752" y="932" class="mini">Net worth</text>
+  <text x="836" y="932" class="mini">Expense</text>
+
+  <text x="1200" y="262" class="sec">Mobile Entry and Setup</text>
+  <g filter="url(#shadow2)"><rect x="1200" y="286" width="240" height="520" rx="34" fill="#F8FBF8" stroke="#CFD7CF"/></g>
+  <rect x="1218" y="312" width="204" height="36" rx="16" fill="#FFFFFF" stroke="#D4DCD4"/>
+  <text x="1240" y="336" class="ink">Today</text>
+  <rect x="1218" y="368" width="204" height="86" rx="20" fill="#263A30"/>
+  <text x="1238" y="398" class="cap" fill="#BDD2C6">DOUBLE ENTRY</text>
+  <text x="1238" y="430" style="font:700 24px 'Segoe UI', sans-serif; fill:#F7FAF7;">Lunch 18,000</text>
+  <rect x="1218" y="474" width="96" height="38" rx="14" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <rect x="1326" y="474" width="96" height="38" rx="14" fill="#FFFFFF" stroke="#D4DDD4"/>
+  <rect x="1218" y="528" width="204" height="40" rx="16" fill="#527A68"/>
+  <text x="1292" y="553" class="btn">Save</text>
+  <rect x="1218" y="596" width="204" height="186" rx="20" fill="#EEF3EE" stroke="#D4DDD4"/>
+  <text x="1238" y="626" class="cap">ACCOUNT SETUP</text>
+  <text x="1238" y="658" class="txt">Assets</text>
+  <text x="1238" y="686" class="txt">Liabilities</text>
+  <text x="1238" y="714" class="txt">Income</text>
+  <text x="1238" y="742" class="txt">Expenses</text>
+
+  <g filter="url(#shadow2)"><rect x="1472" y="286" width="256" height="520" rx="30" fill="#F8FBF8" stroke="#CFD7CF"/></g>
+  <text x="1496" y="324" class="sec" style="font-size:22px;">Direction notes</text>
+  <text x="1496" y="362" class="txt">1. Choose calm order over flashy gradients.</text>
+  <text x="1496" y="402" class="txt">2. Keep the account tree visible in product architecture.</text>
+  <text x="1496" y="442" class="txt">3. Let reports, journal, and setup feel like one system.</text>
+  <rect x="1496" y="570" width="142" height="34" rx="17" fill="#DDE7DE"/>
+  <text x="1520" y="592" class="ink">Report-first UI</text>
+  <rect x="1496" y="620" width="164" height="34" rx="17" fill="#EADFCC"/>
+  <text x="1522" y="642" class="ink">Whooing-inspired</text>
+
+  <text x="72" y="1068" class="sec">Summary</text>
+  <text x="72" y="1102" class="txt">Concept B feels more like a shippable web product while still keeping the journal and report discipline of double-entry accounting.</text>
+</svg>

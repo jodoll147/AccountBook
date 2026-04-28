@@ -1,0 +1,203 @@
+﻿<svg width="1800" height="1240" viewBox="0 0 1800 1240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1800" y2="1240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4EFE6"/>
+      <stop offset="1" stop-color="#ECE5D8"/>
+    </linearGradient>
+    <linearGradient id="heroSoft" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#5D917C"/>
+      <stop offset="1" stop-color="#446E5E"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#927F5C" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .display { font: 700 42px Georgia, serif; fill: #1F2A24; }
+      .headline { font: 700 30px Georgia, serif; fill: #1F2A24; }
+      .section { font: 700 22px Georgia, serif; fill: #25312A; }
+      .kicker { font: 700 12px 'Segoe UI', sans-serif; fill: #5D917C; letter-spacing: 2px; }
+      .body { font: 500 15px 'Segoe UI', sans-serif; fill: #5D665F; }
+      .small { font: 500 12px 'Segoe UI', sans-serif; fill: #7B847C; }
+      .nav { font: 600 14px 'Segoe UI', sans-serif; fill: #34423A; }
+      .metricValue { font: 700 28px Georgia, serif; fill: #1F2A24; }
+      .metricLabel { font: 600 12px 'Segoe UI', sans-serif; fill: #6C756D; letter-spacing: 1px; }
+      .buttonText { font: 700 14px 'Segoe UI', sans-serif; fill: #F8F4EC; }
+      .buttonAlt { font: 700 14px 'Segoe UI', sans-serif; fill: #34423A; }
+      .tableHead { font: 700 12px 'Segoe UI', sans-serif; fill: #6C756D; letter-spacing: 1px; }
+      .tableCell { font: 500 14px 'Segoe UI', sans-serif; fill: #28342D; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="1240" fill="url(#paper)"/>
+  <circle cx="1458" cy="110" r="180" fill="#D8CCB2" fill-opacity="0.45"/>
+  <circle cx="188" cy="1120" r="210" fill="#DDD2BB" fill-opacity="0.5"/>
+
+  <text x="72" y="82" class="display">Whooing-Inspired Household Ledger</text>
+  <text x="74" y="116" class="body">Double-entry input, account groups, and report-first layout inspired by the overall feel of Whooing.</text>
+
+  <rect x="72" y="146" width="1656" height="66" rx="24" fill="#F8F4EC" stroke="#D5CAB6"/>
+  <text x="100" y="186" class="kicker">REFERENCE CUES</text>
+  <text x="260" y="186" class="body">Clean report structure, left-right account flow, asset and liability setup, and a calm journal tone.</text>
+
+  <text x="72" y="262" class="section">Desktop Ledger Workspace</text>
+  <g filter="url(#softShadow)"><rect x="72" y="286" width="1028" height="790" rx="32" fill="#FBF8F1" stroke="#D8CDB9"/></g>
+
+  <rect x="96" y="310" width="980" height="64" rx="24" fill="#F4EEE2" stroke="#D9CFBC"/>
+  <rect x="118" y="326" width="34" height="34" rx="11" fill="#5D917C"/>
+  <text x="166" y="350" class="headline">Ledger</text>
+  <text x="166" y="368" class="small">April 2026 journal and reports</text>
+  <text x="552" y="350" class="nav">Input</text>
+  <text x="612" y="350" class="nav">Journal</text>
+  <text x="684" y="350" class="nav">Reports</text>
+  <text x="770" y="350" class="nav">Budget</text>
+  <text x="836" y="350" class="nav">Setup</text>
+  <rect x="928" y="324" width="124" height="38" rx="19" fill="#5D917C"/>
+  <text x="955" y="348" class="buttonText">Add Entry</text>
+
+  <rect x="96" y="394" width="224" height="658" rx="24" fill="#F4EEE2" stroke="#D9CFBC"/>
+  <text x="120" y="426" class="kicker">WORKSPACE</text>
+  <text x="120" y="460" class="headline">Entry Flow</text>
+  <text x="120" y="486" class="body">Use the left account for the destination and the right account for the source of funds.</text>
+
+  <rect x="120" y="530" width="176" height="58" rx="18" fill="#E6DED0"/>
+  <text x="144" y="555" class="nav">Quick Entry</text>
+  <text x="144" y="575" class="small">Daily expense and income</text>
+
+  <rect x="120" y="598" width="176" height="58" rx="18" fill="#FBF8F1" stroke="#D9CFBC"/>
+  <text x="144" y="623" class="nav">Assets and Debt</text>
+  <text x="144" y="643" class="small">Current balances</text>
+
+  <rect x="120" y="666" width="176" height="58" rx="18" fill="#FBF8F1" stroke="#D9CFBC"/>
+  <text x="144" y="691" class="nav">Period Review</text>
+  <text x="144" y="711" class="small">Monthly comparisons</text>
+
+  <rect x="120" y="756" width="176" height="272" rx="20" fill="#FBF8F1" stroke="#D9CFBC"/>
+  <text x="144" y="790" class="kicker">ACCOUNT GROUPS</text>
+  <text x="144" y="824" class="body">Assets</text>
+  <text x="144" y="850" class="body">Liabilities</text>
+  <text x="144" y="876" class="body">Income</text>
+  <text x="144" y="902" class="body">Expenses</text>
+  <text x="144" y="928" class="body">Opening balance</text>
+  <line x1="144" y1="946" x2="272" y2="946" stroke="#DED4C2"/>
+  <text x="144" y="974" class="small">Setup takes time,</text>
+  <text x="144" y="994" class="small">but the reports get</text>
+  <text x="144" y="1014" class="small">much more accurate.</text>
+
+  <rect x="344" y="394" width="732" height="150" rx="24" fill="url(#heroSoft)"/>
+  <text x="374" y="430" class="kicker" fill="#DDEDE6">MONTH OVERVIEW</text>
+  <text x="374" y="474" style="font:700 34px Georgia, serif; fill:#F8F4EC;">A journal screen that explains money as structure</text>
+  <text x="374" y="506" style="font:500 15px 'Segoe UI', sans-serif; fill:#E2EEE8;">The core idea is calm reporting plus disciplined left-right account entry.</text>
+  <rect x="864" y="420" width="180" height="42" rx="21" fill="#F8F4EC" fill-opacity="0.18" stroke="#C8DDD3"/>
+  <text x="905" y="446" style="font:700 13px 'Segoe UI', sans-serif; fill:#F8F4EC;">Total assets 31.2M</text>
+
+  <rect x="344" y="568" width="228" height="124" rx="22" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="368" y="598" class="metricLabel">NET WORTH</text>
+  <text x="368" y="638" class="metricValue">23.48M</text>
+  <text x="368" y="666" class="small">Assets minus liabilities</text>
+
+  <rect x="592" y="568" width="228" height="124" rx="22" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="616" y="598" class="metricLabel">MONTHLY EXPENSE</text>
+  <text x="616" y="638" class="metricValue">1.42M</text>
+  <text x="616" y="666" class="small">Food, housing, transport</text>
+
+  <rect x="840" y="568" width="236" height="124" rx="22" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="864" y="598" class="metricLabel">REPORT NOTES</text>
+  <text x="864" y="630" class="body">Card usage increased</text>
+  <text x="864" y="654" class="body">Savings ratio improved</text>
+  <text x="864" y="678" class="body">Fixed costs cluster after payday</text>
+
+  <rect x="344" y="716" width="346" height="336" rx="24" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="368" y="750" class="section">Entry Form</text>
+  <text x="368" y="776" class="small">The left-right account structure is the hero of the form.</text>
+  <text x="368" y="818" class="tableHead">DATE</text>
+  <rect x="368" y="830" width="298" height="42" rx="14" fill="#FBF8F1" stroke="#D9CFBC"/>
+  <text x="386" y="857" class="tableCell">2026.04.14</text>
+  <text x="368" y="900" class="tableHead">DESCRIPTION</text>
+  <rect x="368" y="912" width="298" height="42" rx="14" fill="#FBF8F1" stroke="#D9CFBC"/>
+  <text x="386" y="939" class="tableCell">Lunch</text>
+  <text x="368" y="982" class="tableHead">LEFT ACCOUNT</text>
+  <rect x="368" y="994" width="140" height="42" rx="14" fill="#FBF8F1" stroke="#D9CFBC"/>
+  <text x="386" y="1021" class="tableCell">Food</text>
+  <text x="526" y="982" class="tableHead">RIGHT ACCOUNT</text>
+  <rect x="526" y="994" width="140" height="42" rx="14" fill="#FBF8F1" stroke="#D9CFBC"/>
+  <text x="544" y="1021" class="tableCell">Checking</text>
+
+  <rect x="714" y="716" width="362" height="156" rx="24" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="738" y="750" class="section">Asset Mix</text>
+  <circle cx="804" cy="808" r="42" fill="none" stroke="#C6B895" stroke-width="18"/>
+  <path d="M804 766 A42 42 0 1 1 766 826" stroke="#5D917C" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <text x="786" y="814" class="small">75%</text>
+  <text x="870" y="792" class="body">Cash and deposits 18.2M</text>
+  <text x="870" y="820" class="body">Savings and investing 8.5M</text>
+  <text x="870" y="848" class="body">Cards and loans 3.2M</text>
+
+  <rect x="714" y="896" width="362" height="156" rx="24" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="738" y="930" class="section">Recent Journal</text>
+  <text x="738" y="962" class="tableHead">DATE</text>
+  <text x="830" y="962" class="tableHead">DESCRIPTION</text>
+  <text x="978" y="962" class="tableHead">AMOUNT</text>
+  <line x1="738" y1="974" x2="1048" y2="974" stroke="#DCCFBC"/>
+  <text x="738" y="1002" class="tableCell">04.14</text>
+  <text x="830" y="1002" class="tableCell">Lunch</text>
+  <text x="978" y="1002" class="tableCell">18,000</text>
+  <text x="738" y="1028" class="tableCell">04.13</text>
+  <text x="830" y="1028" class="tableCell">Salary</text>
+  <text x="978" y="1028" class="tableCell">3,200,000</text>
+
+  <text x="1136" y="262" class="section">Web Dashboard</text>
+  <g filter="url(#softShadow)"><rect x="1136" y="286" width="592" height="520" rx="32" fill="#FBF8F1" stroke="#D8CDB9"/></g>
+  <rect x="1160" y="310" width="544" height="52" rx="20" fill="#F4EEE2" stroke="#D9CFBC"/>
+  <text x="1184" y="341" class="headline">AccountBook</text>
+  <text x="1426" y="341" class="nav">Dashboard</text>
+  <text x="1518" y="341" class="nav">Analysis</text>
+  <rect x="1596" y="320" width="84" height="32" rx="16" fill="#5D917C"/>
+  <text x="1620" y="341" class="buttonText">Record</text>
+
+  <text x="1160" y="408" class="kicker">WEB HOME</text>
+  <text x="1160" y="448" class="headline">A browser dashboard with reports and entry in one rhythm</text>
+  <text x="1160" y="476" class="body">The web shell keeps the report-first mood and puts recent activity on the side.</text>
+
+  <rect x="1160" y="506" width="166" height="100" rx="22" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <rect x="1348" y="506" width="166" height="100" rx="22" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <rect x="1536" y="506" width="168" height="100" rx="22" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="1182" y="536" class="metricLabel">NET ASSET</text>
+  <text x="1182" y="576" class="metricValue">23.4M</text>
+  <text x="1370" y="536" class="metricLabel">MONTHLY FLOW</text>
+  <text x="1370" y="576" class="metricValue">+1.9M</text>
+  <text x="1558" y="536" class="metricLabel">ALERTS</text>
+  <text x="1558" y="576" class="metricValue">03</text>
+
+  <rect x="1160" y="634" width="344" height="148" rx="24" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="1184" y="668" class="section">Net worth trend</text>
+  <path d="M1194 740 C1230 722 1256 734 1286 704 C1316 674 1350 682 1376 660 C1404 638 1444 648 1478 616" stroke="#5D917C" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <line x1="1194" y1="724" x2="1478" y2="724" stroke="#DFD4C1"/>
+  <line x1="1194" y1="690" x2="1478" y2="690" stroke="#E7DDCB"/>
+
+  <rect x="1528" y="634" width="176" height="148" rx="24" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="1552" y="668" class="section">Recent activity</text>
+  <text x="1552" y="700" class="body">Salary recorded</text>
+  <text x="1552" y="726" class="body">Food expense added</text>
+  <text x="1552" y="752" class="body">Card payment posted</text>
+
+  <text x="1136" y="852" class="section">Mobile Quick Entry</text>
+  <g filter="url(#softShadow)"><rect x="1136" y="876" width="304" height="292" rx="36" fill="#FBF8F1" stroke="#D8CDB9"/></g>
+  <rect x="1160" y="902" width="256" height="40" rx="18" fill="#F4EEE2" stroke="#D9CFBC"/>
+  <text x="1182" y="928" class="headline" style="font-size:20px;">Quick entry</text>
+  <rect x="1160" y="962" width="256" height="72" rx="22" fill="#5D917C"/>
+  <text x="1182" y="996" class="kicker" fill="#DDEDE6">TODAY</text>
+  <text x="1182" y="1020" style="font:700 26px Georgia, serif; fill:#F8F4EC;">Lunch 18,000</text>
+  <rect x="1160" y="1054" width="122" height="42" rx="16" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <rect x="1294" y="1054" width="122" height="42" rx="16" fill="#F7F2E8" stroke="#D9CFBC"/>
+  <text x="1178" y="1080" class="tableCell">Food</text>
+  <text x="1310" y="1080" class="tableCell">Checking</text>
+  <rect x="1160" y="1114" width="256" height="34" rx="17" fill="#34423A"/>
+  <text x="1252" y="1136" class="buttonText">Save</text>
+
+  <g filter="url(#softShadow)"><rect x="1460" y="876" width="268" height="292" rx="32" fill="#FBF8F1" stroke="#D8CDB9"/></g>
+  <text x="1484" y="912" class="section">Direction</text>
+  <text x="1484" y="946" class="body">1. Prefer a report service feel over flashy fintech tropes.</text>
+  <text x="1484" y="986" class="body">2. Keep account structure strict even when entry is fast.</text>
+  <text x="1484" y="1026" class="body">3. Read assets, debt, and income together on one canvas.</text>
+  <rect x="1484" y="1108" width="148" height="36" rx="18" fill="#E6DED0"/>
+  <text x="1516" y="1131" class="buttonAlt">Whooing mood</text>
+</svg>
