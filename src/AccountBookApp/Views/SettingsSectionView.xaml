@@ -76,17 +76,40 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel>
                     <TextBlock Style="{StaticResource SectionTitleStyle}" Text="데이터 관리" />
                     <TextBlock Margin="0,8,0,0"
                                Style="{StaticResource SubtleBodyStyle}"
-                               Text="초기 샘플 거래나 입력한 기록을 비우고 싶을 때 사용합니다. 계정 분류는 그대로 유지됩니다."
+                               Text="작성한 계정, 거래, 자동이체, 프로필 정보를 파일로 저장하거나 다시 불러옵니다. 필요하면 데모 데이터만 비울 수도 있습니다."
                                TextWrapping="Wrap" />
                 </StackPanel>
                 <Button Grid.Column="1"
-                        Width="168"
+                        Width="132"
                         Height="42"
+                        Margin="18,0,0,0"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource SecondaryButtonBrush}"
+                        BorderBrush="{DynamicResource SecondaryButtonBorderBrush}"
+                        Foreground="{DynamicResource SecondaryButtonTextBrush}"
+                        Command="{Binding ImportDataCommand}"
+                        Content="데이터 가져오기" />
+                <Button Grid.Column="2"
+                        Width="132"
+                        Height="42"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource SecondaryButtonBrush}"
+                        BorderBrush="{DynamicResource SecondaryButtonBorderBrush}"
+                        Foreground="{DynamicResource SecondaryButtonTextBrush}"
+                        Command="{Binding ExportDataCommand}"
+                        Content="데이터 내보내기" />
+                <Button Grid.Column="3"
+                        Width="148"
+                        Height="42"
+                        Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         Background="{DynamicResource SecondaryButtonBrush}"
                         BorderBrush="{DynamicResource SecondaryButtonBorderBrush}"

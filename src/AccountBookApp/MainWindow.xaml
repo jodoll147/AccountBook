@@ -197,12 +197,6 @@
                                            TextWrapping="Wrap" />
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                <Button Width="132"
-                                        Height="42"
-                                        Command="{Binding ExportCsvCommand}"
-                                        Content="CSV 내보내기" />
-                            </StackPanel>
                         </Grid>
 
                         <ItemsControl Grid.Row="2" AlternationCount="4" ItemsSource="{Binding Metrics}">

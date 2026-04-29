@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Media;
 using AccountBookApp.Infrastructure;
@@ -19,6 +21,11 @@ public sealed class MainViewModel : ObservableObject
     private const double ChartRightPadding = 12d;
     private const double ChartTopPadding = 18d;
     private const double ChartBottomPadding = 18d;
+    private static readonly JsonSerializerOptions DataBackupJsonOptions = new()
+    {
+        WriteIndented = true,
+        Converters = { new JsonStringEnumConverter() }
+    };
 
     private DateTime _entryDate = DateTime.Today;
     private string _description = string.Empty;
@@ -93,7 +100,8 @@ public sealed class MainViewModel : ObservableObject
     public MainViewModel()
     {
         AddEntryCommand = new RelayCommand(AddEntry);
-        ExportCsvCommand = new RelayCommand(ExportCsv);
+        ImportDataCommand = new RelayCommand(ImportData);
+        ExportDataCommand = new RelayCommand(ExportData);
         RefreshAnalysisCommand = new RelayCommand(RefreshAnalysis);
         ApplyThemeCommand = new RelayCommand(ApplyTheme);
         ShowEntrySectionCommand = new RelayCommand(() => SelectedSection = AppSection.Entry);
@@ -200,7 +208,9 @@ public sealed class MainViewModel : ObservableObject
 
     public RelayCommand AddEntryCommand { get; }
 
-    public RelayCommand ExportCsvCommand { get; }
+    public RelayCommand ImportDataCommand { get; }
+
+    public RelayCommand ExportDataCommand { get; }
 
     public RelayCommand RefreshAnalysisCommand { get; }
 
@@ -1410,21 +1420,13 @@ public sealed class MainViewModel : ObservableObject
         CloseAccountPopup();
     }
 
-    private void ExportCsv()
+    private void ImportData()
     {
-        if (JournalEntries.Count == 0)
+        var dialog = new OpenFileDialog
         {
-            MessageBox.Show("내보낼 거래가 없습니다.", "CSV 내보내기", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-
-        var dialog = new SaveFileDialog
-        {
-            Title = "가계부 CSV 저장",
-            Filter = "CSV 파일 (*.csv)|*.csv",
-            FileName = $"가계부-{DateTime.Now:yyyyMMdd-HHmmss}.csv",
-            AddExtension = true,
-            DefaultExt = ".csv"
+            Title = "AccountBook 데이터 가져오기",
+            Filter = "AccountBook 백업 (*.accountbook.json)|*.accountbook.json|JSON 파일 (*.json)|*.json|모든 파일 (*.*)|*.*",
+            CheckFileExists = true
         };
 
         if (dialog.ShowDialog() != true)
@@ -1432,8 +1434,238 @@ public sealed class MainViewModel : ObservableObject
             return;
         }
 
-        File.WriteAllText(dialog.FileName, BuildCsv(), new UTF8Encoding(true));
-        MessageBox.Show("CSV 파일로 저장했습니다.", "CSV 내보내기", MessageBoxButton.OK, MessageBoxImage.Information);
+        AccountBookBackup? backup;
+        try
+        {
+            var json = File.ReadAllText(dialog.FileName, Encoding.UTF8);
+            backup = JsonSerializer.Deserialize<AccountBookBackup>(json, DataBackupJsonOptions);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                $"데이터 파일을 읽을 수 없습니다.\n{ex.Message}",
+                "데이터 가져오기",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            return;
+        }
+
+        if (!TryValidateBackup(backup, out var validationMessage))
+        {
+            MessageBox.Show(validationMessage, "데이터 가져오기", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        var result = MessageBox.Show(
+            "현재 작성 중인 계정, 거래, 자동이체, 프로필 정보가 가져온 데이터로 교체됩니다. 계속할까요?",
+            "데이터 가져오기",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning);
+
+        if (result != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        ApplyDataBackup(backup!);
+        MessageBox.Show("데이터를 가져왔습니다.", "데이터 가져오기", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void ExportData()
+    {
+        var dialog = new SaveFileDialog
+        {
+            Title = "AccountBook 데이터 내보내기",
+            Filter = "AccountBook 백업 (*.accountbook.json)|*.accountbook.json|JSON 파일 (*.json)|*.json",
+            FileName = $"AccountBook-backup-{DateTime.Now:yyyyMMdd-HHmmss}.accountbook.json",
+            AddExtension = true,
+            DefaultExt = ".accountbook.json"
+        };
+
+        if (dialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        var json = JsonSerializer.Serialize(CreateDataBackup(), DataBackupJsonOptions);
+        File.WriteAllText(dialog.FileName, json, new UTF8Encoding(true));
+        MessageBox.Show("데이터를 내보냈습니다.", "데이터 내보내기", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private AccountBookBackup CreateDataBackup()
+    {
+        return new AccountBookBackup
+        {
+            Version = 1,
+            ExportedAt = DateTime.Now,
+            ThemeMode = SelectedThemeMode,
+            UserProfileName = UserProfileName,
+            LedgerName = LedgerName,
+            UserProfileNote = UserProfileNote,
+            Accounts = Accounts
+                .Select(account => new AccountBackupItem
+                {
+                    Code = account.Code,
+                    Name = account.Name,
+                    Description = account.Description,
+                    Type = account.Type,
+                    Icon = account.Icon,
+                    IsArchived = account.IsArchived
+                })
+                .ToList(),
+            JournalEntries = JournalEntries
+                .OrderBy(entry => entry.EntryDate)
+                .ThenBy(entry => entry.Description)
+                .Select(entry => new JournalEntryBackupItem
+                {
+                    EntryDate = entry.EntryDate.Date,
+                    Description = entry.Description,
+                    ToAccountCode = entry.ToAccountCode,
+                    ToAccountName = entry.ToAccountName,
+                    ToAccountIcon = entry.ToAccountIcon,
+                    FromAccountCode = entry.FromAccountCode,
+                    FromAccountName = entry.FromAccountName,
+                    FromAccountIcon = entry.FromAccountIcon,
+                    Amount = entry.Amount,
+                    Memo = entry.Memo
+                })
+                .ToList(),
+            AutoTransferRules = AutoTransferRules
+                .OrderBy(rule => rule.TransferDay)
+                .ThenBy(rule => rule.Description)
+                .Select(rule => new AutoTransferRuleBackupItem
+                {
+                    Id = rule.Id,
+                    Description = rule.Description,
+                    ToAccountCode = rule.ToAccountCode,
+                    ToAccountName = rule.ToAccountName,
+                    ToAccountIcon = rule.ToAccountIcon,
+                    FromAccountCode = rule.FromAccountCode,
+                    FromAccountName = rule.FromAccountName,
+                    FromAccountIcon = rule.FromAccountIcon,
+                    Amount = rule.Amount,
+                    Memo = rule.Memo,
+                    TransferDay = rule.TransferDay
+                })
+                .ToList()
+        };
+    }
+
+    private static bool TryValidateBackup(AccountBookBackup? backup, out string message)
+    {
+        if (backup is null)
+        {
+            message = "AccountBook 데이터 파일이 아닙니다.";
+            return false;
+        }
+
+        if (backup.Accounts is not { Count: > 0 })
+        {
+            message = "가져올 계정 정보가 없습니다.";
+            return false;
+        }
+
+        var invalidAccount = backup.Accounts.FirstOrDefault(account =>
+            string.IsNullOrWhiteSpace(account.Code) || string.IsNullOrWhiteSpace(account.Name));
+        if (invalidAccount is not null)
+        {
+            message = "계정 코드와 이름이 비어 있는 항목이 있습니다.";
+            return false;
+        }
+
+        var duplicateCode = backup.Accounts
+            .GroupBy(account => account.Code.Trim(), StringComparer.OrdinalIgnoreCase)
+            .FirstOrDefault(group => group.Count() > 1);
+        if (duplicateCode is not null)
+        {
+            message = $"중복된 계정 코드가 있습니다: {duplicateCode.Key}";
+            return false;
+        }
+
+        message = string.Empty;
+        return true;
+    }
+
+    private void ApplyDataBackup(AccountBookBackup backup)
+    {
+        CloseAccountPopup();
+        CloseUserProfilePopup();
+        EditingJournalEntry = null;
+        EditingAutoTransferRule = null;
+        IsEntryEditTabSelected = false;
+
+        Accounts.Clear();
+        foreach (var item in backup.Accounts)
+        {
+            var account = new AccountDefinition(
+                item.Code.Trim(),
+                item.Name.Trim(),
+                item.Description?.Trim() ?? string.Empty,
+                item.Type,
+                string.IsNullOrWhiteSpace(item.Icon) ? GenerateIcon(item.Type) : item.Icon.Trim());
+
+            account.IsArchived = item.IsArchived;
+            Accounts.Add(account);
+        }
+
+        JournalEntries.Clear();
+        foreach (var item in backup.JournalEntries ?? [])
+        {
+            var fromAccount = Accounts.FirstOrDefault(account => account.Code == item.FromAccountCode);
+            var toAccount = Accounts.FirstOrDefault(account => account.Code == item.ToAccountCode);
+
+            InsertEntrySorted(new JournalEntry(
+                item.EntryDate.Date,
+                item.Description?.Trim() ?? string.Empty,
+                item.ToAccountCode?.Trim() ?? string.Empty,
+                toAccount?.Name ?? item.ToAccountName ?? string.Empty,
+                toAccount?.Icon ?? item.ToAccountIcon ?? string.Empty,
+                item.FromAccountCode?.Trim() ?? string.Empty,
+                fromAccount?.Name ?? item.FromAccountName ?? string.Empty,
+                fromAccount?.Icon ?? item.FromAccountIcon ?? string.Empty,
+                Math.Max(0m, decimal.Round(item.Amount, 0)),
+                item.Memo?.Trim() ?? string.Empty));
+        }
+
+        AutoTransferRules.Clear();
+        foreach (var item in backup.AutoTransferRules ?? [])
+        {
+            var fromAccount = Accounts.FirstOrDefault(account => account.Code == item.FromAccountCode);
+            var toAccount = Accounts.FirstOrDefault(account => account.Code == item.ToAccountCode);
+
+            InsertAutoTransferSorted(new AutoTransferRule(
+                string.IsNullOrWhiteSpace(item.Id) ? Guid.NewGuid().ToString("N") : item.Id.Trim(),
+                item.Description?.Trim() ?? string.Empty,
+                item.ToAccountCode?.Trim() ?? string.Empty,
+                toAccount?.Name ?? item.ToAccountName ?? string.Empty,
+                toAccount?.Icon ?? item.ToAccountIcon ?? string.Empty,
+                item.FromAccountCode?.Trim() ?? string.Empty,
+                fromAccount?.Name ?? item.FromAccountName ?? string.Empty,
+                fromAccount?.Icon ?? item.FromAccountIcon ?? string.Empty,
+                Math.Max(0m, decimal.Round(item.Amount, 0)),
+                item.Memo?.Trim() ?? string.Empty,
+                Math.Clamp(item.TransferDay, 1, 31)));
+        }
+
+        UserProfileName = string.IsNullOrWhiteSpace(backup.UserProfileName) ? "사용자" : backup.UserProfileName.Trim();
+        LedgerName = string.IsNullOrWhiteSpace(backup.LedgerName) ? "개인 장부" : backup.LedgerName.Trim();
+        UserProfileNote = string.IsNullOrWhiteSpace(backup.UserProfileNote)
+            ? "내 장부 정보를 관리합니다."
+            : backup.UserProfileNote.Trim();
+
+        SelectedThemeMode = backup.ThemeMode;
+        SelectedThemeOption = ThemeOptions.FirstOrDefault(option => option.Mode == SelectedThemeMode);
+        SelectedAccountStatusPeriodOption ??= AccountStatusPeriodOptions.FirstOrDefault();
+
+        RefreshAnalysisMonths();
+        RefreshEntryHistoryMonths();
+        ApplySelectedAnalysisMonthRange(false);
+        ResetEntryForm();
+        ResetEditEntryForm();
+        ResetAutoTransferForm();
+        RefreshAccountSelections();
+        RefreshDerivedState();
+        SelectedSection = AppSection.Settings;
     }
 
     private void RefreshAnalysis()
@@ -1900,37 +2132,6 @@ public sealed class MainViewModel : ObservableObject
     private void ApplyTheme()
     {
         ThemeService.ApplyTheme(SelectedThemeMode);
-    }
-
-    private string BuildCsv()
-    {
-        var builder = new StringBuilder();
-        builder.AppendLine("날짜,거래명,출금계정코드,출금계정명,입금계정코드,입금계정명,금액,메모");
-
-        foreach (var entry in JournalEntries.OrderBy(item => item.EntryDate).ThenBy(item => item.Description))
-        {
-            builder.AppendLine(string.Join(",",
-                EscapeCsv(entry.EntryDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)),
-                EscapeCsv(entry.Description),
-                EscapeCsv(entry.FromAccountCode),
-                EscapeCsv(entry.FromAccountName),
-                EscapeCsv(entry.ToAccountCode),
-                EscapeCsv(entry.ToAccountName),
-                EscapeCsv(entry.Amount.ToString("0", CultureInfo.InvariantCulture)),
-                EscapeCsv(entry.Memo)));
-        }
-
-        return builder.ToString();
-    }
-
-    private static string EscapeCsv(string value)
-    {
-        if (value.Contains('"'))
-        {
-            value = value.Replace("\"", "\"\"");
-        }
-
-        return value.IndexOfAny([',', '"', '\r', '\n']) >= 0 ? $"\"{value}\"" : value;
     }
 
     private void RefreshDerivedState()
@@ -2823,6 +3024,90 @@ public sealed class MainViewModel : ObservableObject
                 "카드값 납부",
                 23));
         }
+    }
+
+    private sealed class AccountBookBackup
+    {
+        public int Version { get; set; } = 1;
+
+        public DateTime ExportedAt { get; set; }
+
+        public AppThemeMode ThemeMode { get; set; } = AppThemeMode.Dark;
+
+        public string UserProfileName { get; set; } = "사용자";
+
+        public string LedgerName { get; set; } = "개인 장부";
+
+        public string UserProfileNote { get; set; } = "내 장부 정보를 관리합니다.";
+
+        public List<AccountBackupItem> Accounts { get; set; } = [];
+
+        public List<JournalEntryBackupItem> JournalEntries { get; set; } = [];
+
+        public List<AutoTransferRuleBackupItem> AutoTransferRules { get; set; } = [];
+    }
+
+    private sealed class AccountBackupItem
+    {
+        public string Code { get; set; } = string.Empty;
+
+        public string Name { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
+
+        public AccountType Type { get; set; }
+
+        public string Icon { get; set; } = string.Empty;
+
+        public bool IsArchived { get; set; }
+    }
+
+    private sealed class JournalEntryBackupItem
+    {
+        public DateTime EntryDate { get; set; }
+
+        public string Description { get; set; } = string.Empty;
+
+        public string ToAccountCode { get; set; } = string.Empty;
+
+        public string ToAccountName { get; set; } = string.Empty;
+
+        public string ToAccountIcon { get; set; } = string.Empty;
+
+        public string FromAccountCode { get; set; } = string.Empty;
+
+        public string FromAccountName { get; set; } = string.Empty;
+
+        public string FromAccountIcon { get; set; } = string.Empty;
+
+        public decimal Amount { get; set; }
+
+        public string Memo { get; set; } = string.Empty;
+    }
+
+    private sealed class AutoTransferRuleBackupItem
+    {
+        public string Id { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
+
+        public string ToAccountCode { get; set; } = string.Empty;
+
+        public string ToAccountName { get; set; } = string.Empty;
+
+        public string ToAccountIcon { get; set; } = string.Empty;
+
+        public string FromAccountCode { get; set; } = string.Empty;
+
+        public string FromAccountName { get; set; } = string.Empty;
+
+        public string FromAccountIcon { get; set; } = string.Empty;
+
+        public decimal Amount { get; set; }
+
+        public string Memo { get; set; } = string.Empty;
+
+        public int TransferDay { get; set; } = 1;
     }
 }
 
